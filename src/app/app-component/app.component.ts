@@ -11,15 +11,27 @@ library.add(faTimes, faPlus);
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  title = 'Wisdom Pet Medicine';
   theList: object[];
+  modifiedList: object[];
 
   addApt(theApt: object) {
     this.theList.unshift(theApt);
+    this.modifiedList.unshift(theApt);
   }
 
   deleteApt(theApt: object) {
     this.theList = without(this.theList, theApt);
+    this.modifiedList = without(this.theList, theApt);
+  }
+
+  searchApt(theQuery: string) {
+    this.modifiedList = this.theList.filter(eachItem => {
+      return (
+        eachItem['petName'].toLowerCase().includes(theQuery.toLowerCase()) ||
+        eachItem['ownerName'].toLowerCase().includes(theQuery.toLowerCase()) ||
+        eachItem['aptNotes'].toLowerCase().includes(theQuery.toLowerCase())
+      );
+    });
   }
 
   constructor(private http: HttpClient) { }
@@ -27,6 +39,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.http.get<Object[]>('../assets/data.json').subscribe(data => {
       this.theList = data;
+      this.modifiedList = data;
     });
   }
 }

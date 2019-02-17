@@ -5,8 +5,8 @@
 
         <div class="container">
           <app-add (addEvt)="addApt($event)"></app-add>
-          <app-search></app-search>
-          <app-list [aptList]="theList" (deleteEvt)="deleteApt($event)"></app-list>
+          <app-search (queryEvt)="searchApt($event)"></app-search>
+          <app-list [aptList]="modifiedList" (deleteEvt)="deleteApt($event)"></app-list>
         </div>
 
       </div><!-- col-md-12 -->
