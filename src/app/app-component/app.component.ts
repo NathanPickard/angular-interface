@@ -53,6 +53,12 @@ export class AppComponent implements OnInit {
         return 1 * order;
       }
     });
+  }
+
+  orderApt(orderObj) {
+    this.orderBy = orderObj.orderBy;
+    this.orderType = orderObj.orderType;
+
     this.sortItems();
   }
 
